@@ -10,24 +10,23 @@ author:
   bio: Hi, my name is Szymon Tosik. I am fascinated about software development and everything around it.
 
 # Contact links
-twitter: https://twitter.com/ # Add your Twitter handle
-facebook: https://facebook.com/ # Add your Facebook handle
-dribbble: https://dribbble.com/ # Add your Dribbble handle
-instagram: https://instagram.com/ # Add your Instagram handle
-pinterest: https://pinterest.com/ # Add your Pinterest handle
-email: forexample@website.com # Add your Email address
+twitter: https://twitter.com/sh1nenn # Add your Twitter handle
+facebook: https://www.facebook.com/szymon.tosik # Add your Facebook handle
+linkedin: https://www.linkedin.com/in/szymon-tosik/ # Add your Linkedin handle
+github: https://github.com/stosik #Add your github handle
+email: tosikszymon@gmail.com # Add your Email address
 
 # Hero Section
 hero: true # To enable the section hero, use the value true. To turn off use the value false.
-hero-title: Raked Minimalistic Theme # Add your hero title
-hero-subtitle: For those who love simplicity # Add your hero subtitle
+hero-title: Software Development # Add your hero title
+hero-subtitle: For those who strive for perfection # Add your hero subtitle
 hero-image: images/14.jpg # Add background image in section hero
 
 # Footer
 footer-image: images/14.jpg # Add background image in footer
 
 # Comment Section (Disqus)
-disqus-identifier: mr-brown # Add your shortname for Disqus Comment. For example mr-brown
+disqus-identifier: szymontosik # Add your shortname for Disqus Comment. For example mr-brown
 
 # Google Analytics
 google-analytics: "" # Add your identifier. For example UA-99631805-1.
