@@ -45,6 +45,7 @@ in `PayPalPaymentProcessor` will directly affect necessity of changes in `Billin
 not only makes future changes difficult but also makes testing harder. Can we do better? Yes, we can.
 
 Above example can be illustrated with a simple dependency graph:
+
 ![Before refactoring](../assets/dip/dip-before-refactoring.png "DIP violation")
 
 
@@ -82,12 +83,12 @@ that both (low and high-level) components point to the abstraction (interface) i
 
 ![After refactoring](../assets/dip/dip-after-refactoring.png "Dependency graph after refactoring")
 
-# Architecture and DIP
+# Dependency Inversion in Architecture
 
 The example provided above may not offer groundbreaking insights to many of us. Using interfaces as abstractions
 to decouple high-level and low-level components is a common practice. However, the real challenge arises when
-attempting to apply the Dependency Inversion Principle (DIP) to higher-level concepts such as architecture.
-In his book 'Clean Architecture,' Robert C. Martin describes how the application of DIP can lead to the creation
+attempting to apply the Dependency Inversion Principle to higher-level concepts such as architecture.
+In his book `Clean Architecture` Robert C. Martin describes how the application of `DIP` can lead to the creation
 of more flexible and maintainable architecture. This is achieved by placing low-level infrastructure components
 behind a fine line of abstractions, thus keeping the core business logic independent of any external frameworks
 or libraries.
@@ -105,5 +106,37 @@ details. These low-level details are typically referred to as adapters and sit a
 The abstractions are called ports and are part of the domain layer.
 
 ![Hexagon](../assets/dip/dip-hexagon.png "Hexagonal Architecture")
+
+Dependency Inversion Principle is also useful mechanism when it comes 
+
+## Acyclic Dependencies Principle
+
+One of the few things which came to me as a surprise when reading `Clean Architecture` was the existence in literature
+of principle such as `Acyclic Dependencies Principle` (ADP). The principle states:
+
+> allow no cycles in your component dependency graph
+
+Robert C. Martin introduces two challenges when implementing systems:
+- morning after syndrome: code you were working on earlier doesn't work in future because another developer changed 
+a component elsewhere
+- the weekly build: in order to ensure MAS doesn't happen you reduce deployment frequency
+
+It is also worth mentioning that keeping the structure of the components in form of acyclic direct graph (DAG)
+eliminates the possibility of encountering circular dependencies. This particular problem is usually interesting when it
+comes to building and deployment of particular components of the system. Having circular dependency between components
+causes multiple modules (units of deployment) to be built even one of them has not changed.
+
+If we added a dependency on the Auth layer to the Entities, we would also incur a need to build the Interactors,
+which itself requires that Entities are build beforehand. Meaning that this specific module can not be developed
+in isolation anymore.
+
+![DAG](../assets/dip/dip-cycle.png "Cycle in the dependency graph")
+
+Can we prevent that?
+
+### Breaking the cycle
+
+
+![DIP](../assets/dip/dip-cycle-break.png "Breaking the cycle")
 
 # Conclusions
