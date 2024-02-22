@@ -25,14 +25,14 @@ Below we can observe direct `DIP` violation:
 
 ```kotlin
 class BillingService {
-    private val processor = StripePaymentProcessor()
+    private val processor = PayPalPaymentProcessor()
 
     fun charge() {
         processor.process()
     }
 }
 
-class StripePaymentProcessor {
+class PayPalPaymentProcessor {
     fun process() {
         println("Processing PayPal payment")
     }
@@ -84,6 +84,26 @@ that both (low and high-level) components point to the abstraction (interface) i
 
 # Architecture and DIP
 
-The above example is nothing new to most of us. It is a common practice
+The example provided above may not offer groundbreaking insights to many of us. Using interfaces as abstractions
+to decouple high-level and low-level components is a common practice. However, the real challenge arises when
+attempting to apply the Dependency Inversion Principle (DIP) to higher-level concepts such as architecture.
+In his book 'Clean Architecture,' Robert C. Martin describes how the application of DIP can lead to the creation
+of more flexible and maintainable architecture. This is achieved by placing low-level infrastructure components
+behind a fine line of abstractions, thus keeping the core business logic independent of any external frameworks
+or libraries.
+
+This particular approach to designing the architecture of our systems can be found in various sources under different
+names, such as `Ports and Adapters`, `Hexagonal Architecture`, and `Clean Architecture`. The underlying idea behind
+all of these approaches remains consistent: to keep the core business logic as the primary focus of the service,
+free from unnecessary entanglement with external dependencies.
+
+This architectural style applies the Dependency Inversion Principle as an additional restriction on the
+multiple layers of an application. As a result, all dependencies point towards the center, where the high-level
+policy logic should reside. Therefore, the center is where we hope to find the domain model, the core functionality
+of the application. Achieving `DIP` in a layered architecture is done by creating abstract interfaces for the low-level
+details. These low-level details are typically referred to as adapters and sit at the boundary of your system.
+The abstractions are called ports and are part of the domain layer.
+
+![Hexagon](../assets/dip/dip-hexagon.png "Hexagonal Architecture")
 
 # Conclusions
