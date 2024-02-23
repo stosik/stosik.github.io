@@ -101,6 +101,8 @@ names, such as `Ports and Adapters`, `Hexagonal Architecture`, and `Clean Archit
 all of these approaches remains consistent: to keep the core business logic as the primary focus of the service,
 free from unnecessary entanglement with external dependencies.
 
+![Meme](../assets/dip/dip-meme.jpeg "Meme")
+
 This architectural style applies the Dependency Inversion Principle as an additional restriction on the
 multiple layers of an application. As a result, all dependencies point towards the center, where the high-level
 policy logic should reside. Therefore, the center is where we hope to find the domain model, the core functionality
