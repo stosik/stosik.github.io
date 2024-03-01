@@ -382,13 +382,22 @@ class PaymentInMemoryFinder: PaymentsFinder {
         3 to PaymentRecord(3, BigDecimal.TEN, "A", "B")
     )
 
-    override fun findById(paymentId: PaymentId): Either<PaymentNotFound, Payment> {
-        payments[paymentId]?.toDomain() ?: PaymentNotFound(paymentId)
+  override fun findById(paymentId: PaymentId): Either<PaymentNotFound, Payment> = either {
+    val payment = payments[paymentId.value]
+    ensureNotNull(payment) {
+      PaymentNotFound(paymentId)
     }
+    payment.toDomain()
+  }
   
     private fun PaymentRecord.toDomain(): Payment = Payment(PaymentId(paymentId), Amount(amount), Account(from), Account(to))
 }
 ```
+
+The most tricky part here is the `findById` method. We use `either` builder function to create an instance of `Either`.
+It is a dedicated DSL to simplify the composition of Either instances. Similarly, we have access to the `ensureNotNull`
+extension function, which `short-circuits` (returns result without further method execution) the computation if a `null`
+value is found.
 
 ### Rest API layer:
 
@@ -402,7 +411,7 @@ val paymentsFinder = PaymentInMemoryFinder()
 routing {   
   get("/payments/{id?}") {
     val id = call.parameters["id"] ?: return@get call.respondText(
-      "Missing id",
+      "Missing payment id",
       status = HttpStatusCode.BadRequest
     )
     
