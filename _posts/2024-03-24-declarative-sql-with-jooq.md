@@ -57,6 +57,9 @@ It generates Java classes based on the database schema which we can use to inter
 agnostic in the sense that it is able to transform subtle differences between multiple dialects and allows to generate
 queries which are compatible with multiple databases. 
 
+Link to the official website: [JOOQ](https://www.jooq.org/)
+Github repository: [JOOQ Github](https://github.com/jOOQ/jOOQ)
+
 ## JOOQ vs Hibernate
 You may ask, why I should even consider migrating from `Hibernate` to `JOOQ`? If your application is simple, and you
 mostly do simple read and writes, then `Hibernate` is probably a good choice. But if your data model is complex, and you
@@ -96,7 +99,6 @@ dependencies {
     implementation("org.jooq:jooq-kotlin:3.17.5")
 }
 
-
 fun generateJooq() {
     Configuration().apply {
         generator = Generator().apply {
@@ -110,13 +112,9 @@ fun generateJooq() {
                 )
             }
             generate = Generate().apply {
-                pojosAsKotlinDataClasses = true
                 isDeprecationOnUnknownTypes = false
-                isKotlinNotNullPojoAttributes = false
-                isKotlinNotNullRecordAttributes = false
-                isKotlinNotNullInterfaceAttributes = false
-                isKotlinDefaultedNullablePojoAttributes = true
-                isKotlinDefaultedNullableRecordAttributes = true
+                isJavaTimeTypes = true
+                isKotlinNotNullRecordAttributes = true
             }
             target = Target().apply {
                 packageName = "database.schema"
